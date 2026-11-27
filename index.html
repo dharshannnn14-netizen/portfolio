@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Portfolio Roles</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #38bdf8;
+        }
+
+        .typing-text {
+            color: #38bdf8;
+            border-right: 3px solid #38bdf8;
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Hello, I'm Priyadharshan</h1>
+
+        <h2>
+            I'm a <span class="typing-text" id="typing"></span>
+        </h2>
+    </section>
+
+    <script>
+        const roles = [
+            "Web Developer",
+            "Computer Science Student",
+            "Creative Problem Solver"
+        ];
+
+        const typingElement = document.getElementById("typing");
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            typingElement.textContent =
+                currentRole.substring(0, charIndex);
+
+            let speed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                speed = 1500;
+                isDeleting = true;
+            } 
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                speed = 500;
+            }
+
+            setTimeout(typeEffect, speed);
+        }
+
+        typeEffect();
+    </script>
+
+</body>
+</html>
